@@ -3,10 +3,8 @@ function lengthOfLongestSubstring(s) {
     var sMap = {};
     var max = 0;
     for (let i=0, j=0; i<s.length; ++i) {
-        if (sMap[s[i]]) {
-            j = Math.max(j, sMap[s[i]] + 1);
-        }
-        sMap[s[i]] = i;
+        j = sMap[s[i]] ? Math.max(j, sMap[s[i]]) : j;
+        sMap[s[i]] = i + 1;
         max = Math.max(max, i - j + 1);
     }
     return max;
