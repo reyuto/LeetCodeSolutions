@@ -1,30 +1,13 @@
-var isValid = function(s) {
-  var l = s.length;
-  var start = 0;
-  while (start < l) {
-    if (s.indexOf(s[start], start+1) > -1) {
-      return false;
+function lengthOfLongestSubstring(s) {
+    if (s.length === 0) return 0;
+    var sMap = {};
+    var max = 0;
+    for (let i=0, j=0; i<s.length; ++i) {
+        if (sMap[s[i]]) {
+            j = Math.max(j, sMap[s[i]] + 1);
+        }
+        sMap[s[i]] = i;
+        max = Math.max(max, i - j + 1);
     }
-    start++;
-  }
-  return l;
+    return max;
 }
-
-/**
- * @param {string} s
- * @return {number}
- */
-var lengthOfLongestSubstring = function(s) {
-  var l = s.length;
-  var cL = l;
-  if (l <= 1) return l;
-  do {
-    var count = cL - l + 1;
-    var start = 0;
-    while (count--) {
-      var subS = isValid(s.substr(start, l));
-      if (subS) return subS;
-      start += 1;
-    }
-  } while (l--);
-};
